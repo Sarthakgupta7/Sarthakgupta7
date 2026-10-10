@@ -1,9 +1,10 @@
-"""Build an animated SG monogram with orbital particles."""
+"""Build a dissolving point cloud from the supplied mountain photo."""
+from PIL import Image
 from pathlib import Path
 import random, math, html
 R=Path(__file__).resolve().parents[1]
 random.seed(7)
-s=['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 610" role="img" aria-label="SG, animated spatial monogram and developer profile"><title>SG: orbital particles scatter and reform</title><rect width="1180" height="610" rx="16" fill="#0b1020"/><rect x="1" y="1" width="1178" height="608" rx="16" fill="none" stroke="#28354b"/><path d="M0 46H1180" stroke="#28354b"/>']
+s=['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 610" role="img" aria-label="SG, dissolving mountain photo and developer profile"><title>SG: mountain photo dissolves into particles and reforms</title><rect width="1180" height="610" rx="16" fill="#0b1020"/><rect x="1" y="1" width="1178" height="608" rx="16" fill="none" stroke="#28354b"/><path d="M0 46H1180" stroke="#28354b"/>']
 for x,c in [(26,'#ff5f57'),(48,'#febc2e'),(70,'#28c840')]:s.append(f'<circle cx="{x}" cy="23" r="6" fill="{c}"/>')
 def text(x,y,t,size=14,c='#9aa9c2',extra=''):
  return f'<text x="{x}" y="{y}" font-family="ui-monospace,monospace" font-size="{size}" fill="{c}" {extra}>{html.escape(t)}</text>'
@@ -12,20 +13,23 @@ for x,w in [(28,418),(474,678)]:s.append(f'<rect x="{x}" y="66" width="{w}" heig
 s.extend([text(44,89,'SPATIAL.MAP',12,'#45d9e8'),text(490,89,'SYSTEM.INFO',12,'#45d9e8'),text(1080,89,'● LIVE',12,'#ff6b80')])
 s.append('<defs><clipPath id="portrait"><rect x="44" y="104" width="386" height="452" rx="8"/></clipPath></defs><g clip-path="url(#portrait)">')
 paths={}; moving=[]
-# Native bitmap lettering sampled into a vector point cloud.
-letters=['01111011110','11000011001','11000011000','01110011011','00011011001','00011011001','11110001110']
-for row,line in enumerate(letters):
- for col,cell in enumerate(line):
-  if cell!='1': continue
-  for oy in range(0,25,4):
-   for ox in range(0,25,4):
-    x=74+col*30+ox; y=227+row*30+oy
-    level=2 if (row+col)%3 else 3
-    color=['#453268','#7454a8','#a78bfa','#ddcaff'][level]
-    if random.random()<.45:
-     moving.append((x,y,color,random.uniform(-110,110),random.uniform(-100,100)))
-    else:
-     key=(level,random.randrange(16));paths.setdefault(key,[]).append(f'M{x:.1f} {y:.1f}h2.5v2.5h-2.5z')
+# Sample the user's mountain photo into vector particles.
+im=Image.open(R/'assets/mountain-photo.png').convert('RGB')
+left,top,right,bottom=0,300,im.width,im.height
+scale=min(370/(right-left),442/(bottom-top))
+xbase=237-(right-left)*scale/2; ybase=113
+palette=['#172c40','#29465f','#3f6884','#648fa6','#a0bbc9','#e4e2de']
+for iy in range(top,bottom,7):
+ for ix in range(left,right,7):
+  r,g,b=im.getpixel((ix,iy))
+  light=.2126*r+.7152*g+.0722*b
+  level=min(5,int(light/43))
+  x=xbase+(ix-left)*scale;y=ybase+(iy-top)*scale
+  color=palette[level]
+  if random.random()<.065:
+   moving.append((x,y,color,random.uniform(-110,110),random.uniform(-100,100)))
+  else:
+   key=(level,random.randrange(16));paths.setdefault(key,[]).append(f'M{x:.1f} {y:.1f}h1.9v1.9h-1.9z')
 # Depth cues: a star field and two tilted elliptical orbits.
 for i in range(65):
  x=random.uniform(50,428); y=random.uniform(119,548)
@@ -33,7 +37,7 @@ for i in range(65):
 for angle,color,duration in [(-24,'#45d9e8',18),(32,'#b59aff',25)]:
  s.append(f'<g transform="rotate({angle} 237 337)"><ellipse cx="237" cy="337" rx="180" ry="108" fill="none" stroke="{color}" stroke-opacity=".23" stroke-width="1"/><g><animateTransform attributeName="transform" type="rotate" from="0 237 337" to="360 237 337" dur="{duration}s" repeatCount="indefinite"/><circle cx="417" cy="337" r="4" fill="{color}"/></g></g>')
 for (level,phase),commands in paths.items():
- s.append(f'<path fill="{["#453268","#7454a8","#a78bfa","#ddcaff"][level]}" d="{"".join(commands)}"><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.23;.39;.64;.82;1" dur="14s" begin="{phase*.018:.3f}s" repeatCount="indefinite"/></path>')
+ s.append(f'<path fill="{palette[level]}" d="{"".join(commands)}"><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;.23;.39;.64;.82;1" dur="14s" begin="{phase*.018:.3f}s" repeatCount="indefinite"/></path>')
 for x,y,c,dx,dy in moving:
  s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="1.2" fill="{c}"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;{dx:.1f} {dy:.1f};{-dx*.55:.1f} {dy*.7:.1f};0 0;0 0" keyTimes="0;.23;.43;.62;.82;1" dur="14s" repeatCount="indefinite"/><animate attributeName="fill" values="{c};{c};#45d9e8;#45d9e8;{c};{c}" keyTimes="0;.23;.43;.62;.82;1" dur="14s" repeatCount="indefinite"/></circle>')
 s.append('</g>')
