@@ -49,5 +49,5 @@ for i,(label,value) in enumerate(rows):
  s.extend([text(498,y,label,13,'#7c90af'),f'<path d="M498 {y+10}H1126" stroke="#25324b" stroke-dasharray="1 5"/>',text(1125,y,value,13,'#d1daeb','text-anchor="end"')])
 s.append(text(498,551,'BUILD / LEARN / IMPROVE / REPEAT',12,'#45d9e8'))
 s.append('</svg>')
-(R/'assets/animated-header.svg').write_text(''.join(s))
+(R/'assets/mountain-header.svg').write_text(''.join(s))
 print(f'Generated animated SVG with {len(moving)} moving particles and {sum(map(len,paths.values()))} portrait dots')
