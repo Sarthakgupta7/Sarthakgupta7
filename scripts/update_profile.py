@@ -44,17 +44,3 @@ for i,(name,size) in enumerate(langs.most_common(6)):
     s+=f'<circle cx="{x+5}" cy="{y-4}" r="5" fill="{colors[name]}"/>'+txt(x+20,y,f'{name}  {size/total:.1%}',13,'#dde5f3')
 s+=txt(30,192,'Repository composition, not a measure of proficiency.',10)
 (ROOT/'assets/languages.svg').write_text(s+'</svg>')
-s=start(900,205,'Contribution calendar with an animated snake')+txt(30,33,'CONTRIBUTION SNAKE / KEEP BUILDING',12,'#45d9e8')
-points=[]
-for wi,w in enumerate(cal['weeks']):
-    for d in w['contributionDays']:
-        row=(datetime.date.fromisoformat(d['date']).weekday()+1)%7
-        x=30+wi*16;y=55+row*16
-        fill=d['color'] if d['contributionCount'] else '#182237'
-        s+=f'<rect x="{x}" y="{y}" width="12" height="12" rx="2" fill="{fill}"><title>{d["date"]}: {d["contributionCount"]} contributions</title></rect>'
-for wi in range(len(cal['weeks'])):
-    for row in (range(7) if wi%2==0 else reversed(range(7))): points.append(f'{36+wi*16},{61+row*16}')
-path='M'+' L'.join(points)
-s+=f'<path d="{path}" fill="none" stroke="#45d9e8" stroke-width="7" stroke-linecap="round" stroke-dasharray="40 10000"><animate attributeName="stroke-dashoffset" from="0" to="-6500" dur="45s" repeatCount="indefinite"/></path>'
-s+=txt(30,188,'Each square is a day. The snake is decorative; the activity is real.',10)
-(ROOT/'assets/contributions.svg').write_text(s+'</svg>')

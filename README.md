@@ -22,6 +22,7 @@ My work spans developer tools, learning platforms, and community products. I als
 
 | Project | What it does | Focus |
 | :--- | :--- | :--- |
+| [GitHub Repo Roaster](https://github.com/Sarthakgupta7/github-roaster) | AI-powered repository feedback, code-quality analysis, and developer tools. | React · Node.js · Groq |
 | [Klymb.ai](https://github.com/Sarthakgupta7/klymb-ai) | A learning platform frontend for structured job-readiness tracks. | TypeScript · learning experiences |
 | [Repo Radar](https://github.com/Sarthakgupta7/repo-radar) | Tracks trending and newly created GitHub repositories, ranked by stars and forks. | TypeScript · GitHub discovery |
 | [AI Code Reviewer](https://github.com/Sarthakgupta7/code-reviewer) | An AI-powered tool for source-code feedback, explanations, and improvement suggestions. | React · Node.js · Gemini |
@@ -53,7 +54,11 @@ My work spans developer tools, learning platforms, and community products. I als
 
 ## 🐍 Contribution snake
 
-<img src="./assets/contributions.svg" width="100%" alt="Real contribution calendar with an animated snake" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Sarthakgupta7/Sarthakgupta7/main/assets/snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Sarthakgupta7/Sarthakgupta7/main/assets/snake-light.svg" />
+  <img src="https://raw.githubusercontent.com/Sarthakgupta7/Sarthakgupta7/main/assets/snake-dark.svg" width="100%" alt="Snake eating my GitHub contribution squares" />
+</picture>
 
 ## 🌱 What I'm learning
 

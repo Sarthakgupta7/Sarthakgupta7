@@ -15,6 +15,15 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 scripts/update_profile.py
+      - name: Generate contribution snake
+        uses: Platane/snk/svg-only@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3
+        with:
+          github_user_name: Sarthakgupta7
+          outputs: |
+            assets/snake-dark.svg?palette=github-dark&color_snake=#b59aff
+            assets/snake-light.svg?palette=github-light&color_snake=#8250df
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Save refreshed graphics
         run: |
           git config user.name "github-actions[bot]"
