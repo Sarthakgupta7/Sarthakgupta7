@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://www.linkedin.com/in/sarthak-gupta7/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn" /></a>
   <a href="https://portfolio-topaz-six-57.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-0b1020?style=for-the-badge&amp;logo=vercel&amp;logoColor=45d9e8" alt="Portfolio" /></a>
   <a href="https://github.com/Sarthakgupta7?tab=repositories"><img src="https://img.shields.io/badge/Explore_my_work-0b1020?style=for-the-badge&amp;logo=github&amp;logoColor=b59aff" alt="Explore my repositories" /></a>
 </p>
