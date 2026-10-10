@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/animated-header.svg" width="100%" alt="Sarthak Gupta | AI systems, backend engineering, useful products" />
+  <img src="./assets/animated-header.svg" width="100%" alt="SG | Applying automation wherever possible" />
 </p>
 
 <p align="center">
